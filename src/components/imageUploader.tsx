@@ -7,7 +7,6 @@ import {
   FileUploadUploadEvent,
   ItemTemplateOptions,
 } from "primereact/fileupload";
-import { ProgressSpinner } from "primereact/ProgressSpinner";
 import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
@@ -18,7 +17,6 @@ import { ProgressBar } from "primereact/progressbar";
 export default function ImageUploader(fileOriginal: any) {
   const toast = useRef<Toast>(null);
   const [totalSize, setTotalSize] = useState(0);
-  const [loading, setLoading] = useState(false);
   const fileUploadRef = useRef<FileUpload>(null);
 
   const onTemplateSelect = (event: FileUploadUploadEvent) => {
@@ -164,7 +162,6 @@ export default function ImageUploader(fileOriginal: any) {
   const handleUpload = async (e: any) => {
     if (e.files.length < 1) return;
     const { fileOriginal: originalBinary } = fileOriginal;
-    setLoading(true);
     for (const element of e.files) {
       const formData = new FormData();
       formData.append("file", element);
@@ -183,7 +180,6 @@ export default function ImageUploader(fileOriginal: any) {
     }
 
     // Reset progress bar and file count after all uploads are done
-    setLoading(false);
   };
 
   return (
