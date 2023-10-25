@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { MODEL_TYPE, SERVER_URL } from "./api_constants";
+import { API_RESULT, API_UPLOAD, MODEL_TYPE, SERVER_URL } from "./api_constants";
 
 interface IResponse<T> {
   code: string;
@@ -21,7 +21,7 @@ interface Resultado {
 
 
 function generarImagen(code: string) {
-  fetch("https://access4.faceswapper.ai/api/FaceSwapper/CheckStatus", {
+  fetch(API_RESULT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function generarImagen(code: string) {
 
 export async function subirImagen(formData: any) {
   try {
-    const response = await fetch("https://access4.faceswapper.ai/api/FaceSwapper/UploadByFile", {
+    const response = await fetch(API_UPLOAD, {
       method: "POST",
       body: formData,
     });
