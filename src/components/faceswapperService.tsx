@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { API_RESULT, API_UPLOAD, MODEL_TYPE, SERVER_URL } from "./api_constants";
+import { toast } from "react-toastify";
+import { API_RESULT, API_UPLOAD, MODEL_TYPE, SERVER_URL, API_UPLOAD_GIF } from "./api_constants";
 
 interface IResponse<T> {
   code: string;
@@ -20,7 +21,13 @@ interface Resultado {
 
 
 
-function generarImagen(code: string) {
+function generarImagen(code: string, tryCount = 0) {
+  
+  if (tryCount >= 20) {
+    console.error("Se ha superado el número máximo de intentos");
+    return;
+  }
+
   fetch(API_RESULT, {
     method: "POST",
     headers: {
@@ -33,7 +40,7 @@ function generarImagen(code: string) {
       if (response.data.status === "waiting") {
         console.log("El estado es waiting. Reintentando en 3 segundos...");
         setTimeout(() => {
-          generarImagen(code);
+          generarImagen(code , tryCount + 1);
         }, 4000); // Reintentar después de 3 segundos (3000 milisegundos)
       } else {
         console.log(`El estado ya no es waiting. URL: ${response.data.downloadUrls[0]}`);
@@ -43,15 +50,16 @@ function generarImagen(code: string) {
 
         // descargar la imagen
         const imageUrl = response.data.downloadUrls[0]; // Obtener la URL de la imagen del objeto JSON
-        const filename = `${code}.jpg`; // Nombre del archivo a descargar
-
+        const filename = `${code}`; // Nombre del archivo a descargar
+        toast.success(`Imagen generada con exito ✔️`);
         fetch(imageUrl)
           .then((res) => res.blob())
           .then((blob) => {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
+            const extension = imageUrl.split(".").pop();
             a.href = url;
-            a.download = filename;
+            a.download = filename + extension;
             a.target = "_blank";
             document.body.appendChild(a);
             a.click();
@@ -61,13 +69,17 @@ function generarImagen(code: string) {
     })
     .catch((error) => {
       console.error("Error al realizar la consulta:", error);
-      // Manejar el error, por ejemplo, mostrando un mensaje al usuario
+      setTimeout(() => {
+        generarImagen(code , tryCount + 1);
+      }, 4000);
     });
 }
 
-export async function subirImagen(formData: any) {
+export async function subirImagen(formData: any, ext: string) {
+
+  const URL_API = ext === "gif" ? API_UPLOAD_GIF : API_UPLOAD;
   try {
-    const response = await fetch(API_UPLOAD, {
+    const response = await fetch(URL_API, {
       method: "POST",
       body: formData,
     });

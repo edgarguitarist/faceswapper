@@ -7,10 +7,12 @@ import 'primeflex/primeflex.css';                                   // css utili
 import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.css';                       // core css
 import './index.css';                                                // local css
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <PrimeReactProvider>
     <App />
+    <ToastContainer />
   </PrimeReactProvider>,
 )
