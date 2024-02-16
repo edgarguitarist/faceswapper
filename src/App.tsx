@@ -2,11 +2,12 @@ import ImageUploader from "./components/imageUploader";
 import "./app.css";
 import { useRef, useState } from "react";
 
-function App() {
+
+export default function App() {
   const originalIMGRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleSelect = (e:any) => {
+  const handleSelect = (e: any) => {
     setSelectedFile(e.target.files[0]);
     const fileURL = URL.createObjectURL(e.target.files[0]);
     originalIMGRef.current.src = fileURL;
@@ -17,7 +18,7 @@ function App() {
       <div id="principal">
         <div id="uno">
           <h1>ORIGINAL</h1>
-          <img ref={originalIMGRef} src="" alt="" />
+          <img ref={originalIMGRef} src="/no-image.jpg" alt="" />
           <input
             type="file"
             name="originalFile"
@@ -26,12 +27,10 @@ function App() {
           />
         </div>
         <div id="dos">
-          <h1>MODELOS</h1>
+          <h1>DESTINO</h1>
           <ImageUploader fileOriginal={selectedFile} />
         </div>
       </div>
     </>
   );
 }
-
-export default App;
