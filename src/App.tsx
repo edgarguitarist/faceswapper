@@ -1,4 +1,4 @@
-import ImageUploader from "./components/imageUploader";
+import ImageUploader from "./components/imageUploader.jsx";
 import "./app.css";
 import { useRef, useState } from "react";
 
@@ -7,10 +7,10 @@ export default function App() {
   const originalIMGRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleSelect = (e: any) => {
+  const handleSelect = (e) => {
     setSelectedFile(e.target.files[0]);
     const fileURL = URL.createObjectURL(e.target.files[0]);
-    originalIMGRef.current.src = fileURL;
+    originalIMGRef!.current!.src = fileURL;
   };
 
   return (

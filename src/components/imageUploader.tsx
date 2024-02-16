@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useState } from "react";
+//ts-ignore
+
+import { useRef, useState } from "react";
 import { Toast } from "primereact/toast";
 import {
   FileUpload,
-  FileUploadHeaderTemplateOptions,
-  FileUploadUploadEvent,
-  ItemTemplateOptions,
 } from "primereact/fileupload";
 import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
@@ -14,12 +13,12 @@ import { subirImagen } from "./faceswapperService";
 import { ALGORITHM, MODEL_TYPE, SERVER_URL } from "./api_constants";
 import { ProgressBar } from "primereact/progressbar";
 
-export default function ImageUploader(fileOriginal: any) {
+export default function ImageUploader(fileOriginal) {
   const toast = useRef<Toast>(null);
   const [totalSize, setTotalSize] = useState(0);
   const fileUploadRef = useRef<FileUpload>(null);
 
-  const onTemplateSelect = (event: FileUploadUploadEvent) => {
+  const onTemplateSelect = (event) => {
     let _totalSize = totalSize;
     const files = event.files;
 
@@ -30,7 +29,7 @@ export default function ImageUploader(fileOriginal: any) {
     setTotalSize(_totalSize);
   };
 
-  const onTemplateUpload = (e: FileUploadUploadEvent) => {
+  const onTemplateUpload = (e) => {
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -45,7 +44,7 @@ export default function ImageUploader(fileOriginal: any) {
     });
   };
 
-  const onTemplateRemove = (file: File, callback: Function) => {
+  const onTemplateRemove = (file, callback) => {
     setTotalSize(totalSize - file.size);
     callback();
   };
@@ -54,7 +53,7 @@ export default function ImageUploader(fileOriginal: any) {
     setTotalSize(0);
   };
 
-  const headerTemplate = (options: FileUploadHeaderTemplateOptions) => {
+  const headerTemplate = (options) => {
     const { className, chooseButton, uploadButton, cancelButton } = options;
     const value = totalSize / 100000;
     const formatedValue =
@@ -86,8 +85,8 @@ export default function ImageUploader(fileOriginal: any) {
     );
   };
 
-  const itemTemplate = (inFile: object, props: ItemTemplateOptions) => {
-    const file = inFile as File;
+  const itemTemplate = (inFile, props) => {
+    const file = inFile;
     return (
       //props.index >0 &&
       <div className="flex align-items-center flex-wrap space-between">
@@ -158,8 +157,7 @@ export default function ImageUploader(fileOriginal: any) {
       "custom-cancel-btn p-button-danger p-button-rounded p-button-outlined",
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleUpload = async (e: any) => {
+  const handleUpload = async (e) => {
     if (e.files.length < 1) return;
     const { fileOriginal: originalBinary } = fileOriginal;
     for (const element of e.files) {

@@ -1,7 +1,6 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import { PrimeReactProvider } from 'primereact/api';
+import App from './App.tsx';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';   // theme
 import 'primeflex/primeflex.css';                                   // css utility
 import 'primeicons/primeicons.css';
