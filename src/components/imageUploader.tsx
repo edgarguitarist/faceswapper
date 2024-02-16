@@ -169,9 +169,9 @@ export default function ImageUploader(fileOriginal: any) {
       formData.append("type", MODEL_TYPE);
       formData.append("alg", ALGORITHM);
       formData.append("serveUrl", SERVER_URL);
-
+      const extension = element.name.split(".").pop();
       try {
-        await subirImagen(formData);
+        await subirImagen(formData, extension);
         // Update progress bar after each successful upload
       } catch (error) {
         // Handle upload errors here if needed
@@ -209,7 +209,7 @@ export default function ImageUploader(fileOriginal: any) {
           uploadHandler={handleUpload}
           multiple
           accept="image/*"
-          maxFileSize={1000000}
+          maxFileSize={10000000}
           onUpload={onTemplateUpload}
           onSelect={onTemplateSelect}
           onError={onTemplateClear}
