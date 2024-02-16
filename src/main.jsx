@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import { PrimeReactProvider } from 'primereact/api';
-import App from './App.tsx';
+import App from './App.jsx';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';   // theme
 import 'primeflex/primeflex.css';                                   // css utility
 import 'primeicons/primeicons.css';
@@ -9,7 +9,7 @@ import './index.css';                                                // local cs
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <PrimeReactProvider>
     <App />
     <ToastContainer />

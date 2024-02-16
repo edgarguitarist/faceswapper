@@ -10,7 +10,7 @@ export default function App() {
   const handleSelect = (e) => {
     setSelectedFile(e.target.files[0]);
     const fileURL = URL.createObjectURL(e.target.files[0]);
-    originalIMGRef!.current!.src = fileURL;
+    originalIMGRef.current.src = fileURL;
   };
 
   return (

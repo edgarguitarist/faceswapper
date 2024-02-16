@@ -14,9 +14,9 @@ import { ALGORITHM, MODEL_TYPE, SERVER_URL } from "./api_constants";
 import { ProgressBar } from "primereact/progressbar";
 
 export default function ImageUploader(fileOriginal) {
-  const toast = useRef<Toast>(null);
+  const toast = useRef(null);
   const [totalSize, setTotalSize] = useState(0);
-  const fileUploadRef = useRef<FileUpload>(null);
+  const fileUploadRef = useRef(null);
 
   const onTemplateSelect = (event) => {
     let _totalSize = totalSize;
