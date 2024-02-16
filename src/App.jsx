@@ -1,5 +1,5 @@
 import ImageUploader from "./components/imageUploader.jsx";
-import "./app.css";
+import "./App.css";
 import { useRef, useState } from "react";
 
 
