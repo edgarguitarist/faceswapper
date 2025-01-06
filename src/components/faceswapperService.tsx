@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { toast } from "react-toastify";
-import { API_RESULT, API_UPLOAD, MODEL_TYPE, SERVER_URL, API_UPLOAD_GIF } from "./api_constants";
+import { API_RESULT, API_UPLOAD, MODEL_TYPE, SERVER_URL, API_UPLOAD_GIF, TOKEN } from "./api_constants";
 
 interface IResponse<T> {
   code: string;
@@ -32,6 +32,7 @@ function generarImagen(code: string, tryCount = 0) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${TOKEN}`,
     },
     body: JSON.stringify({ code, serveUrl: SERVER_URL, type: MODEL_TYPE }),
   })
@@ -81,6 +82,9 @@ export async function subirImagen(formData: any, ext: string) {
   try {
     const response = await fetch(URL_API, {
       method: "POST",
+      headers: {
+        "Authorization": `Bearer ${TOKEN}`,
+      },
       body: formData,
     });
 
